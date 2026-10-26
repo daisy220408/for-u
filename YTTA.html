@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sudah tahu atau sudah The Cure</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Georgia, serif;
+    background: #000000;
+    );
+    color: white;
+}
+
+.container {
+    width: 90%;
+    max-width: 650px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+}
+
+h1 {
+    font-size: 35px;
+    margin-bottom: 10px;
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    opacity: 0.8;
+    margin-bottom: 45px;
+}
+
+#lyrics {
+    font-size: 25px;
+    line-height: 1.8;
+    min-height: 150px;
+    padding: 10px;
+    text-shadow: 0 0 15px #ffb6d5;
+    transition: opacity 0.6s ease;
+}
+
+.heart {
+    position: fixed;
+    bottom: -40px;
+    pointer-events: none;
+    animation: floatUp linear forwards;
+    opacity: 0;
+    color: #FFB6D9;
+    text-shadow: 0 0 12px #FFB6D9;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+    }
+    15% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 27px;
+    }
+
+    #lyrics {
+        font-size: 21px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Sudah tahu atau sudah The Cure</h1>
+    <div class="subtitle">SAKIT NI LAGU</div>
+    <div id="lyrics">Loading love... 💗</div>
+</div>
+
+<script>
+const lines = [
+    "Oh, because my head is full of poison,",
+    "and my heart is full of doubt (I'm unraveled)",
+    "I got toxins in my bloodstream",
+    "you tried so hard to suck out (I'm unraveled)",
+    "And it feels like medication,",
+    "and it's good for me, I'm sure (I'm unraveled)"
+];
+
+let index = 0;
+const lyricBox = document.getElementById("lyrics");
+
+function showLyrics() {
+    lyricBox.style.opacity = 0;
+
+    setTimeout(() => {
+        lyricBox.textContent = lines[index];
+        lyricBox.style.opacity = 1;
+
+        index = (index + 1) % lines.length;
+    }, 600);
+}
+
+// Lirik langsung muncul saat halaman dibuka
+showLyrics();
+
+// Ganti baris secara otomatis setiap 3,5 detik
+setInterval(showLyrics, 3500);
+
+// Animasi hati beterbangan
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+
+    const symbols = ["♡", "♥", "💗", "✧"];
+    heart.textContent =
+        symbols[Math.floor(Math.random() * symbols.length)];
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (16 + Math.random() * 25) + "px";
+
+    const duration = 5 + Math.random() * 5;
+    heart.style.animationDuration = duration + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), duration * 1000);
+}
+
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
